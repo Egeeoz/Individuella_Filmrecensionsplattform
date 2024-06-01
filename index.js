@@ -7,10 +7,14 @@ const Movie = require('./models/movie');
 const Review = require('./models/review');
 const app = express();
 
+const userRoutes = require('./routes/userRoutes');
+const movieRoutes = require('./routes/movieRoutes');
+
 app.use(express.json());
 
 // routes
-//app.use("/user", route)
+app.use('/users', userRoutes);
+app.use('/movies', movieRoutes);
 
 mongoose.connect(process.env.MONGODB);
 mongoose.connection.once('open', () => {
