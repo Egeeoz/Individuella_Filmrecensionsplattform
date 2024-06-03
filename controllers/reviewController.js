@@ -21,6 +21,8 @@ const getAllReviews = async (req, res) => {
 
 const getReviewById = async (req, res) => {
   try {
+    const review = await Review.findById(req.params.id);
+    res.status(201).send(review);
   } catch (error) {
     res.status(400).send(error);
   }
