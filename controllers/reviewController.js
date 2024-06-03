@@ -51,6 +51,8 @@ const updateReview = async (req, res) => {
 
 const deleteReview = async (req, res) => {
   try {
+    await Review.findByIdAndDelete(req.params.id);
+    res.status(200).send('Review deleted');
   } catch (error) {
     res.status(400).send(error);
   }
