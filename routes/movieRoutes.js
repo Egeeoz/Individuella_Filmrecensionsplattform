@@ -4,7 +4,7 @@ const movieController = require('../controllers/movieController');
 const adminCheck = require('../middlewares/adminMiddleware');
 
 router.post('/', adminCheck, movieController.addMovie);
-router.get('/');
+router.get('/', movieController.getMovie);
 router.get('/:id');
 router.put('/:id');
 router.get('/:id/reviews');
