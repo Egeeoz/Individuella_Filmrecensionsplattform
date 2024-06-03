@@ -12,6 +12,8 @@ const addReview = async (req, res) => {
 
 const getAllReviews = async (req, res) => {
   try {
+    const reviews = await Review.find({});
+    res.status(201).send(reviews);
   } catch (error) {
     res.status(400).send(error);
   }
