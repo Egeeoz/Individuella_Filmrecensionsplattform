@@ -10,10 +10,19 @@ const addMovie = async (req, res) => {
   }
 };
 
-const getMovie = async (req, res) => {
+const getAllMovies = async (req, res) => {
   try {
     const movies = await Movie.find({});
     res.status(201).send(movies);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+const getMovie = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    res.status(201).send(movie);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -42,6 +51,7 @@ const deleteMovie = async (req, res) => {
 
 module.exports = {
   addMovie,
+  getAllMovies,
   getMovie,
   updateMovieDetails,
   getAllMovieReviews,
