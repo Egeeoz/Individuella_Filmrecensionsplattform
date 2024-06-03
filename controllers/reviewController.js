@@ -29,7 +29,21 @@ const getReviewById = async (req, res) => {
 };
 
 const updateReview = async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedupdates = ['rating', 'comment'];
+  const isValidKeys = updates.every((updates) =>
+    allowedupdates.includes(updates)
+  );
+  if (!isValidKeys) {
+    res.status(400).send('Invalid update fields');
+    return;
+  }
+
   try {
+    const review = await Review.findById(req.params.id);
+    updates.forEach((update) => (review[update] = req.body[update]));
+    await review.save();
+    res.status(200).send(review);
   } catch (error) {
     res.status(400).send(error);
   }
