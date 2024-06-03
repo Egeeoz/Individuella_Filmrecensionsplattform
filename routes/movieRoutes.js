@@ -6,8 +6,8 @@ const adminCheck = require('../middlewares/adminMiddleware');
 router.post('/', adminCheck, movieController.addMovie);
 router.get('/', movieController.getAllMovies);
 router.get('/:id', movieController.getMovie);
-router.put('/:id');
-router.get('/:id/reviews');
+router.put('/:id', adminCheck, movieController.updateMovieDetails);
+router.get('/:id/reviews', movieController.getAllMovieReviews);
 router.delete('/:id');
 
 module.exports = router;

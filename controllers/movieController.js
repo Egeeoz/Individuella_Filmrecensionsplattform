@@ -1,4 +1,5 @@
 const Movie = require('../models/movie');
+const Review = require('../models/review');
 
 const addMovie = async (req, res) => {
   try {
@@ -29,7 +30,28 @@ const getMovie = async (req, res) => {
 };
 
 const updateMovieDetails = async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedupdates = [
+    'userId',
+    'title',
+    'director',
+    'releaseYear',
+    'genre',
+  ];
+  const isValidKeys = updates.every((updates) =>
+    allowedupdates.includes(updates)
+  );
+
+  if (!isValidKeys) {
+    res.status(400).send('Invalid update fields');
+    return;
+  }
+
   try {
+    const movie = await Movie.findById(req.params.id);
+    updates.forEach((update) => (movie[update] = req.body[update]));
+    await movie.save();
+    res.status(200).send(movie);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -37,6 +59,11 @@ const updateMovieDetails = async (req, res) => {
 
 const getAllMovieReviews = async (req, res) => {
   try {
+    const reviews = await Review.find({ movieId: req.params.movieId }).populate(
+      'userId',
+      'username'
+    );
+    res.status(200).send(reviews);
   } catch (error) {
     res.status(400).send(error);
   }
