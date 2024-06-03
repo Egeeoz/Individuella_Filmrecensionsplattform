@@ -9,12 +9,14 @@ const app = express();
 
 const userRoutes = require('./routes/userRoutes');
 const movieRoutes = require('./routes/movieRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 
 app.use(express.json());
 
 // routes
 app.use('/users', userRoutes);
 app.use('/movies', movieRoutes);
+app.use('/reviews', reviewRoutes);
 
 mongoose.connect(process.env.MONGODB);
 mongoose.connection.once('open', () => {

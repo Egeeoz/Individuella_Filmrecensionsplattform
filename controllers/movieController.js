@@ -59,7 +59,7 @@ const updateMovieDetails = async (req, res) => {
 
 const getAllMovieReviews = async (req, res) => {
   try {
-    const reviews = await Review.find({ movieId: req.params.movieId }).populate(
+    const reviews = await Review.find({ movieId: req.params.id }).populate(
       'userId',
       'username'
     );
@@ -71,6 +71,8 @@ const getAllMovieReviews = async (req, res) => {
 
 const deleteMovie = async (req, res) => {
   try {
+    await Movie.findByIdAndDelete(req.params.id);
+    res.status(200).send('Movie deleted');
   } catch (error) {
     res.status(400).send(error);
   }
