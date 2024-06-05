@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+
 require('dotenv').config();
 
 const User = require('./models/user');
@@ -13,7 +14,7 @@ const reviewRoutes = require('./routes/reviewRoutes');
 
 app.use(express.json());
 
-// routes
+// Routes
 app.use('/users', userRoutes);
 app.use('/movies', movieRoutes);
 app.use('/reviews', reviewRoutes);

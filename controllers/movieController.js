@@ -31,13 +31,7 @@ const getMovie = async (req, res) => {
 
 const updateMovieDetails = async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedupdates = [
-    'userId',
-    'title',
-    'director',
-    'releaseYear',
-    'genre',
-  ];
+  const allowedupdates = ['title', 'director', 'releaseYear', 'genre'];
   const isValidKeys = updates.every((updates) =>
     allowedupdates.includes(updates)
   );
